@@ -12,7 +12,7 @@ from qreader import QReader
 from paddleocr import PaddleOCR
 import requests
 from bs4 import BeautifulSoup
-
+_TEMP_WEIGHTS_DIR = tempfile.gettempdir()
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -55,7 +55,7 @@ def generate_clean_exact_match_df(ocr_df, app_df):
 # ============================
 
 def decode_qr(image):
-    detector = QReader()
+    detector = QReader(weights_folder=_TEMP_WEIGHTS_DIR)
     decoded_qrs, _ = detector.detect_and_decode(image=image, return_detections=True)
     return decoded_qrs[0] if decoded_qrs else None
 
