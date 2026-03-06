@@ -113,7 +113,9 @@ def extract_with_selenium(url):
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--window-size=1920,1080")
 
-        service = Service(ChromeDriverManager().install())
+        # Use system-installed chromium on Streamlit Cloud
+        options.binary_location = "/usr/bin/chromium"
+        service = Service("/usr/bin/chromedriver")
         driver = webdriver.Chrome(service=service, options=options)
         driver.set_page_load_timeout(60)
 
